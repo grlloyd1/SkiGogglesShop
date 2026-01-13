@@ -1,0 +1,75 @@
+@model SkiGogglesShop.ViewModels.ProductListViewModel
+
+@{
+    ViewData["Title"] = "Ski Goggles";
+}
+
+<div class="container">
+    <h1 class="mb-4">Ski Goggles</h1>
+
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <form method="get" class="d-flex gap-2">
+                <select name="category" class="form-select" onchange="this.form.submit()">
+                    <option value="">All Categories</option>
+                    @foreach (var cat in Model.Categories)
+                    {
+                        <option value="@cat" selected="@(Model.SelectedCategory == cat)">@cat</option>
+                    }
+                </select>
+                <select name="lensColor" class="form-select" onchange="this.form.submit()">
+                    <option value="">All Lens Colors</option>
+                    @foreach (var color in Model.LensColors)
+                    {
+                        <option value="@color" selected="@(Model.SelectedLensColor == color)">@color</option>
+                    }
+                </select>
+                @if (!string.IsNullOrEmpty(Model.SelectedCategory) || !string.IsNullOrEmpty(Model.SelectedLensColor))
+                {
+                    <a href="@Url.Action("Index")" class="btn btn-outline-secondary">Clear</a>
+                }
+            </form>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var product in Model.Products)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                        <i class="bi bi-sunglasses" style="font-size: 4rem; color: #6c757d;"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text text-muted small">@product.Category | @product.LensColor</p>
+                        <p class="card-text">@product.Description</p>
+                        <p class="card-text fs-4 fw-bold text-primary">$@product.Price.ToString("F2")</p>
+                    </div>
+                    <div class="card-footer bg-transparent border-top-0">
+                        <div class="d-flex gap-2">
+                            <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-outline-primary flex-grow-1">View Details</a>
+                            <form asp-controller="Cart" asp-action="Add" method="post">
+                                <input type="hidden" name="productId" value="@product.Id" />
+                                <button type="submit" class="btn btn-primary" @(product.IsAvailable ? "" : "disabled")>
+                                    <i class="bi bi-cart-plus"></i>
+                                </button>
+                            </form>
+                        </div>
+                        @if (!product.IsAvailable)
+                        {
+                            <small class="text-danger">Out of Stock</small>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (!Model.Products.Any())
+    {
+        <div class="alert alert-info">
+            No products found matching your criteria.
+        </div>
+    }
+</div>

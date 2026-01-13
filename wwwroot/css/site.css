@@ -1,0 +1,86 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+/* Card hover effects */
+.card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Hero section styling */
+.bg-primary {
+  background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%) !important;
+}
+
+/* Form styling improvements */
+.form-control:focus {
+  border-color: #0d6efd;
+}
+
+/* Product card image placeholder */
+.card-img-top {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+/* Navigation active state */
+.navbar-nav .nav-link.active {
+  font-weight: 600;
+}
+
+/* Table styling */
+.table th {
+  font-weight: 600;
+  color: #495057;
+}
+
+/* Alert improvements */
+.alert {
+  border: none;
+  border-radius: 0.5rem;
+}
+
+/* Badge styling */
+.badge {
+  font-weight: 500;
+}
+
+/* Button improvements */
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+}
+
+/* Footer link hover */
+footer a:hover {
+  color: #fff !important;
+}

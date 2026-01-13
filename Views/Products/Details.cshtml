@@ -1,0 +1,68 @@
+@model SkiGogglesShop.Models.Product
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="container">
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Products" asp-action="Index">Products</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 400px;">
+                <i class="bi bi-sunglasses" style="font-size: 8rem; color: #6c757d;"></i>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h1>@Model.Name</h1>
+            <p class="text-muted">@Model.Category | @Model.FrameStyle</p>
+
+            <p class="fs-2 fw-bold text-primary my-4">$@Model.Price.ToString("F2")</p>
+
+            <p class="lead">@Model.Description</p>
+
+            <table class="table table-borderless">
+                <tr>
+                    <th scope="row">Lens Color</th>
+                    <td>@Model.LensColor</td>
+                </tr>
+                <tr>
+                    <th scope="row">Frame Style</th>
+                    <td>@Model.FrameStyle</td>
+                </tr>
+                <tr>
+                    <th scope="row">Availability</th>
+                    <td>
+                        @if (Model.IsAvailable)
+                        {
+                            <span class="text-success">In Stock (@Model.StockQuantity available)</span>
+                        }
+                        else
+                        {
+                            <span class="text-danger">Out of Stock</span>
+                        }
+                    </td>
+                </tr>
+            </table>
+
+            <form asp-controller="Cart" asp-action="Add" method="post" class="mt-4">
+                <input type="hidden" name="productId" value="@Model.Id" />
+                <div class="d-flex gap-3 align-items-center">
+                    <div class="input-group" style="width: 120px;">
+                        <span class="input-group-text">Qty</span>
+                        <input type="number" name="quantity" class="form-control" value="1" min="1" max="@Model.StockQuantity" @(Model.IsAvailable ? "" : "disabled") />
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg" @(Model.IsAvailable ? "" : "disabled")>
+                        <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
