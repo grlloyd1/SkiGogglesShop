@@ -34,3 +34,6 @@ artifacts/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Test results
+TestResults/
